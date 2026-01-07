@@ -9,7 +9,7 @@ export const Mainpage = ({ products = { products }, productsDetails = { products
         <>
             <Box sx={{ mt: 20 }}>
                 <Header />
-                <Home products={products} productsDetails={productsDetails} />
+                {/* <Home products={products} productsDetails={productsDetails} /> */}
                 <Box sx={{ mt: 5,
                         mb: 5,
                          boxShadow :  "2px 2px 2px black",}}>
