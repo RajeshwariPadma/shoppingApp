@@ -3,28 +3,12 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { Box, flex } from "@mui/system"
 import { useEffect, useState } from "react"
+import { Header } from "./Header";
 
 // const dataa =  fetch('https://fakestoreapi.com/products');
 
-export const Home = () => {
-    const [products, setProducts] = useState([]);
-
-    // const productsDetails = async () => {
-    //     const response = await fetch('https://dummyjson.com/products?sortBy=title&order=asc');
-    //     const newData = await response.json();
-    //     setProducts(newData.products);
-    //     // setProducts(newData);
-    // }
-
-    const productsDetails = async () => {
-        const [dummyres, fakeres] = await Promise.all([
-            (await fetch('https://dummyjson.com/products?sortBy=title&order=asc')).json(),
-            (await fetch('https://fakestoreapi.com/products')).json()
-        ]);
-
-        const mergeData = [...dummyres.products, ...fakeres];
-        setProducts(mergeData)
-    }
+export const Home = ({products , productsDetails}) => {
+   
 
     useEffect(() => {
         console.log(productsDetails());
@@ -33,10 +17,21 @@ export const Home = () => {
     console.log(products)
     return (
         <>
-            <Box sx={ {mt : 20}}>
+        <Box sx={{ pl : 10,
+           pr : 10,
+           backgroundColor : "red"}}>
+<Box sx={ {mt : 10 ,
+          
+                display : "flex",
+                gap : 5,
+                backgroundColor : "blue"
+
+            }}>
                 {products.map((device) => {
                     return (
-                        <Box sx={{ display : "inline-block"}}>
+                        <Box  
+                        // sx={{ display : "inline-block"}}
+                        >
                             <Card key={device.id}
                                 sx={{
                                     width: 180,
@@ -61,6 +56,8 @@ export const Home = () => {
                     )
                 })}
             </Box>
+        </Box>
+            
         </>
     )
 }
