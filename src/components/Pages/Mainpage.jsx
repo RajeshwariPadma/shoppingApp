@@ -15,20 +15,40 @@ export const Mainpage = ({ products = { products }, productsDetails = { products
                 pl: 2,
                 pr: 5
             }}>
+
                 <Header />
-                {/* <Home products={products} productsDetails={productsDetails} /> */}
+                <Box sx={{ mt: 15 }}>
+                    <Typography sx={{
+                        fontSize: 40,
+                        fontWeight: "bold",
+                        p: 3,
+
+                        "&:hover": {
+                            background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            cursor: "pointer"
+                        }
+
+                    }}> ALL PRODUCTS </Typography>
+                    <Home products={products} productsDetails={productsDetails} />
+                </Box>
+
                 <Box sx={{
                     mt: 5,
                     mb: 5,
                     boxShadow: "2px 2px 2px black",
                 }}>
                     <Typography sx={{
-                        fontSize: 30,
+                        fontSize: 40,
                         fontWeight: "bold",
                         p: 3,
 
                         "&:hover": {
-                            color: "red"
+                            background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            cursor: "pointer"
                         }
                     }}>Shop By Category</Typography>
                     <Box sx={{
@@ -65,45 +85,54 @@ export const Mainpage = ({ products = { products }, productsDetails = { products
 
                 </Box>
                 <Typography sx={{
-                    fontSize: 30,
+                    fontSize: 40,
                     fontWeight: "bold",
                     p: 3,
 
                     "&:hover": {
-                        color: "red"
+                        background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            cursor: "pointer"
                     }
                 }}>Women</Typography>
                 <Womens category="women's clothing" products={products} />
 
-                <Box sx={{ pl: 5 , pt: 3 , pb : 1}}><hr ></hr></Box>
+                <Box sx={{ pl: 5, pt: 3, pb: 1 }}><hr ></hr></Box>
 
 
                 <Typography sx={{
-                    fontSize: 30,
+                    fontSize: 40,
                     fontWeight: "bold",
                     p: 3,
 
                     "&:hover": {
-                        color: "red"
+                        background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            cursor: "pointer"
                     }
                 }}>Electronics</Typography>
                 <Electronics category="electronics" products={products} />
 
-                <Box sx={{ pl: 5 , pt: 3 , pb : 1 }}><hr ></hr></Box>
+                <Box sx={{ pl: 5, pt: 3, pb: 1 }}><hr ></hr></Box>
 
                 <Typography sx={{
-                    fontSize: 30,
+                    fontSize: 40,
                     fontWeight: "bold",
                     p: 3,
 
                     "&:hover": {
-                        color: "red"
+                        background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            cursor: "pointer"
                     },
                     display: "flex",
                     flexDirection: "row"
                 }}>Mens</Typography>
                 <Mens category="men's clothing" products={products} ></Mens>
-            </Box>
+            </Box >
 
         </>
     )
