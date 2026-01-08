@@ -6,6 +6,9 @@ import { Box } from "@mui/system"
 import { Womens } from "./Women"
 import { Mens } from "./Mens"
 import { Electronics } from "./Electronic"
+import { OfferBar } from "./OfferBar"
+
+
 
 export const Mainpage = ({ products = { products }, productsDetails = { productsDetails }, category }) => {
     return (
@@ -16,7 +19,10 @@ export const Mainpage = ({ products = { products }, productsDetails = { products
                 pr: 5
             }}>
 
+
                 <Header />
+
+                <OfferBar sx={{mt: 5}} />
                 <Box sx={{ mt: 15 }}>
                     <Typography sx={{
                         fontSize: 40,
@@ -91,9 +97,9 @@ export const Mainpage = ({ products = { products }, productsDetails = { products
 
                     "&:hover": {
                         background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            cursor: "pointer"
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        cursor: "pointer"
                     }
                 }}>Women</Typography>
                 <Womens category="women's clothing" products={products} />
@@ -108,9 +114,9 @@ export const Mainpage = ({ products = { products }, productsDetails = { products
 
                     "&:hover": {
                         background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            cursor: "pointer"
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        cursor: "pointer"
                     }
                 }}>Electronics</Typography>
                 <Electronics category="electronics" products={products} />
@@ -124,9 +130,9 @@ export const Mainpage = ({ products = { products }, productsDetails = { products
 
                     "&:hover": {
                         background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                            cursor: "pointer"
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        cursor: "pointer"
                     },
                     display: "flex",
                     flexDirection: "row"
