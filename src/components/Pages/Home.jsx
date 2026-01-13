@@ -17,7 +17,7 @@ export const Home = ({ products, productsDetails }) => {
     const CARD_WIDTH = 220;      // card + gap
 const VISIBLE_CARDS = 6; // how many fit in the container
 
-const maxIndex = products.length - VISIBLE_CARDS;
+const maxIndex = Math.max(products.length - VISIBLE_CARDS,0);
 
     useEffect(() => {
         if (!isAnimated) return;
@@ -44,13 +44,34 @@ const maxIndex = products.length - VISIBLE_CARDS;
 //     useEffect(() => {
 //   console.log("Current index:", index);
 // }, [index]);
-    useEffect(() => {
-        console.log(productsDetails());
-    }, []);
+    // useEffect(() => {
+    //     console.log(productsDetails());
+    // }, []);
 
     // console.log(products)
     return (
-        <>
+        
+        <Box sx={{ mt: 15,
+            pl: 5,
+                pr: 5
+         }}>
+
+      
+        <Box >
+            <Typography sx={{
+                        fontSize: 40,
+                        fontWeight: "bold",
+                        p: 3,
+
+                        "&:hover": {
+                            background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
+                            WebkitBackgroundClip: "text",
+                            WebkitTextFillColor: "transparent",
+                            cursor: "pointer"
+                        }
+
+                    }}> ALL PRODUCTS </Typography>
+        </Box>
             <Box
                 sx={{
                     // backgroundColor : "red",
@@ -59,8 +80,10 @@ const maxIndex = products.length - VISIBLE_CARDS;
                     
                     
                 <Box sx={{
-                    pl: 5,
-                    pr: 5,
+                    // pl: 5,
+                    // pr: 5,
+                    pl: 7,
+                pr: 10,
                     // mt: 10,
                     backgroundColor: "#e4d2f9a0",
                     // overflowX: "scroll",
@@ -190,6 +213,7 @@ const maxIndex = products.length - VISIBLE_CARDS;
                     
                 </Box>
             </Box>
-        </>
+              </Box>
+        
     )
 }
