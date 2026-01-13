@@ -3,10 +3,15 @@ import Typography from "@mui/material/Typography"
 
 export const OfferBar = () => {
     return (
-        <>
+       
+        <Box sx={{pl: 5,
+                pr: 5,}}> 
+
+       
             <Box sx={{
                 p: 5,
                 m: 17,
+                
                 backgroundColor: "rgba(241, 152, 169, 0.67)",
                 display: "flex",
                 flexDirection: "row",
@@ -39,6 +44,7 @@ export const OfferBar = () => {
                     }}> on ALL PRODUCTS</Typography>
             </Box>
              </Box>
-        </>
+              </Box>
+       
     )
 }

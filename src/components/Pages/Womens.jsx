@@ -5,18 +5,56 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 
-export const Womens = ({ products, category }) => {
+export const Womens = ({ products }) => {
 
-    const filterData = products.filter((p) => p.category && category &&
-        p.category?.toLowerCase() === category.toLowerCase()
-    )
+    // const filterData = products.filter((p) => p.category && category &&
+    //     p.category?.toLowerCase() === category.toLowerCase()
+    // )
 
+    // if (!products || products.length === 0) {
+    //     return (
+    //         <Typography sx={{ p: 25, fontSize: 20 }}>
+    //             Loading women's clothing...
+    //         </Typography>
+    //     );
+    // }
+
+
+    const filterData = products.filter(
+        p => p.category === "women's clothing"
+    );
+
+    if (filterData.length === 0) {
+        return (
+            <Typography sx={{ p: 5, fontSize: 20 }}>
+                No women's clothing found
+            </Typography>
+        );
+    }
 
     return (
-        <>
+
+        <Box sx={{
+            pl: 5,
+            pr: 5
+        }}>
+            <Box >
+                <Typography sx={{
+                    fontSize: 40,
+                    fontWeight: "bold",
+                    p: 3,
+
+                    "&:hover": {
+                        background: "linear-gradient(30deg ,  rgba(243, 21, 21, 1), rgba(44, 44, 232, 1), rgba(9, 241, 9, 1), rgb(226, 226, 25))",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        cursor: "pointer"
+                    }
+                }}>Women</Typography>
+            </Box>
             <Box sx={{
                 // display: "grid",
-                 backgroundColor: "#b2a4f298",
+                backgroundColor: "#d8cffd98",
                 // gridTemplateRows: "repeat(auto-fill , 1fr)",
                 // gridTemplateColumns: "repeat(2 , 1fr)",
                 // width: 270,
@@ -24,15 +62,21 @@ export const Womens = ({ products, category }) => {
                 gap: 4,
                 p: 2,
                 m: 2,
-                 borderRadius: 5,
+                borderRadius: 5,
                 display: "flex",
                 width: "98%",
                 height: 350,
                 cursor: "pointer",
-                mb: 5
+                mb: 5,
+                pl: 2,
+                pr: 5
             }}>
                 {filterData.length > 0 ? (
                     filterData.map((device) => {
+                        const rating =
+                            typeof device.rating === "object"
+                                ? device.rating.rate
+                                : device.rating ?? "N/A";
                         return (
                             <>
                                 <Card key={device.id}
@@ -45,7 +89,7 @@ export const Womens = ({ products, category }) => {
                                         width: 220,
                                         // height: 150,
                                         boxShadow: "2px 2px 2px  #3736375e",
-                                         borderRadius: 2,
+                                        borderRadius: 2,
                                         // cursor: "pointer",
                                         // "&:hover": {
                                         //     transform: "scale(1.1)"
@@ -61,7 +105,7 @@ export const Womens = ({ products, category }) => {
                                             width: 180,
                                             height: 180,
                                             p: (0, 2.5),
-                                             
+
                                             "&:hover": {
                                                 transform: "scale(1.1)"
                                             }
@@ -75,7 +119,7 @@ export const Womens = ({ products, category }) => {
                                         textOverflow: "ellipsis",
                                         cursor: "pointer",
                                         "&:hover": {
-                                            color: "red",
+                                            color: "Black",
                                             fontWeight: "bold"
                                         },
                                         pl: 5
@@ -94,7 +138,11 @@ export const Womens = ({ products, category }) => {
                                                 // fontWeight: "bold",
                                                 // backgroundColor: "yellow",
                                                 borderRadius: 2,
-                                                mt: 3
+                                                mt: 3,
+                                                "&:hover": {
+                                                    color: "Black",
+                                                    fontWeight: "bold"
+                                                },
                                                 // pl: 5
                                             }}> {device.price}$</Button>
                                             <Button sx={{
@@ -104,9 +152,11 @@ export const Womens = ({ products, category }) => {
                                                 fontWeight: "bold",
                                                 backgroundColor: "yellow",
                                                 borderRadius: 2,
-                                                mt: 3
+                                                mt: 3,
 
-                                            }}>{device.rating.rate}</Button>
+                                               
+
+                                            }}>{rating}</Button>
                                         </Box>
 
                                     </CardContent>
@@ -117,7 +167,8 @@ export const Womens = ({ products, category }) => {
                     })
                 ) : <Box> no product</Box>}
             </Box>
+            <Box sx={{ pl: 5, pt: 3, pb: 1 }}><hr ></hr></Box>
+        </Box>
 
-        </>
     )
 }
