@@ -43,6 +43,24 @@ export const Womens = ({ products }) => {
         addToCart(deviceId);
     };
 
+    const handleAddToWishlist = (deviceId) => {
+        if(!user) {
+            alert("Please Login to add items to wishlist");
+            navigate("/login");
+            return;
+        }
+        addToWishList(deviceId);
+    };
+
+    const handleRemovefromWishlist = (deviceId) => {
+        if(!user) {
+            alert("Please Login to remove items to wishlist");
+            navigate("/login");
+            return;
+        }
+        removeFromWishlist(deviceId);
+    }
+
     return (
 
         <Box sx={{
@@ -180,7 +198,7 @@ export const Womens = ({ products }) => {
                                     </CardContent>
                                     <Box>
                                         {!!wishList?.[device.id] ? (
-                                            <Button onClick={() => removeFromWishlist(device.id)}
+                                            <Button onClick={() => handleRemovefromWishlist(device.id)}
                                              sx={{
                                                 position: "absolute",
                                                 top: "5%",
@@ -190,7 +208,7 @@ export const Womens = ({ products }) => {
                                             }}>
                                                 < FavoriteIcon sx={{ fontSize: 30 }}  />
                                             </Button>
-                                        ) : <Button onClick={() => addToWishList(device.id)} 
+                                        ) : <Button onClick={() =>  handleAddToWishlist(device.id)} 
                                         sx={{
                                                 position: "absolute",
                                                 top: "5%",

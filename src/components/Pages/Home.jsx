@@ -11,6 +11,8 @@ import Typography from "@mui/material/Typography";
 import { WishListContext } from "../Navigation_Pages/WishlistContext";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { AuthContext } from "../Navigation_Pages/AuthContext";
+import { useNavigate } from "react-router";
 // const dataa =  fetch('https://fakestoreapi.com/products');
 
 export const Home = ({ products, productsDetails }) => {
@@ -20,6 +22,8 @@ export const Home = ({ products, productsDetails }) => {
     const [isAnimated, setAnimated] = useState(true);
     const CARD_WIDTH = 220;      // card + gap
     const VISIBLE_CARDS = 6; // how many fit in the container
+    const {user} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const maxIndex = Math.max(products.length - VISIBLE_CARDS, 0);
 
@@ -43,16 +47,29 @@ export const Home = ({ products, productsDetails }) => {
         if (index >= maxIndex) return;
         setAnimated(false);
         setIndex(prev => (prev + 1));
+    };
+
+    const handleAddToWishlist = (deviceId) => {
+        if(!user) {
+            alert("Please Login to add items to wishlist");
+            navigate("/login");
+            return;
+        }
+
+        addToWishList(deviceId);
+    };
+
+    const handleRemovefromWishlist = (deviceId) => {
+        if(!user) {
+            alert("Please Login to remove items to wishlist");
+            navigate("/login");
+            return;
+        };
+
+        removeFromWishlist(deviceId);
     }
 
-    //     useEffect(() => {
-    //   console.log("Current index:", index);
-    // }, [index]);
-    // useEffect(() => {
-    //     console.log(productsDetails());
-    // }, []);
 
-    // console.log(products)
     return (
 
         <Box sx={{
@@ -182,7 +199,7 @@ export const Home = ({ products, productsDetails }) => {
                                         />
                                         <Box>
                                             {!!wishList?.[device.id] ? (
-                                                <Button onClick={() => removeFromWishlist(device.id)}
+                                                <Button onClick={() => handleRemovefromWishlist(device.id)}
                                                     sx={{
                                                         position: "absolute",
                                                         top: "5%",
@@ -192,7 +209,7 @@ export const Home = ({ products, productsDetails }) => {
                                                     }}>
                                                     < FavoriteIcon sx={{ fontSize: 30 }} />
                                                 </Button>
-                                            ) : <Button onClick={() => addToWishList(device.id)}
+                                            ) : <Button onClick={() => handleAddToWishlist(device.id)}
                                                 sx={{
                                                     position: "absolute",
                                                     top: "5%",
