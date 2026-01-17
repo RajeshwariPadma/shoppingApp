@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { AuthContext } from "../Navigation_Pages/AuthContext";
 import { WishListContext } from "../Navigation_Pages/WishlistContext";
+import { useNavigate } from "react-router";
 
 
 export const Electronics = ({ products, category }) => {
@@ -19,6 +20,7 @@ export const Electronics = ({ products, category }) => {
     const { wishList,  addToWishList, removeFromWishlist } = useContext(WishListContext);
     const { cartItems, setCartItems, addToCart, removeFromCart } = useContext(StoreContext);
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
     
 
     const filterData = products.filter(p =>
@@ -35,10 +37,12 @@ export const Electronics = ({ products, category }) => {
 
     const handleAddToCart = (deviceId) => {
         if (!user) {
-            alert("please Login to add items to cart")
+            alert("please Login to add items to cart");
+            navigate("/login");
+            return
         }
 
-        return addToCart(deviceId);
+         addToCart(deviceId);
     };
     return (
 

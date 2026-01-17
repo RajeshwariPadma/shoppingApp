@@ -19,7 +19,6 @@ import { Login } from "./components/Navigation_Pages/Login";
 import { Footer } from "./components/Pages/Footer";
 
 import { Cart } from "./components/Navigation_Pages/Cart";
-import { Logout } from "./components/Navigation_Pages/LogOut";
 import { Wishlist } from "./components/Navigation_Pages/Wishlist";
 
 
@@ -82,7 +81,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/footer" element={< Footer />} />
           <Route path="/cart" element={<Cart products={products} />} />
-          <Route path="/logout" element={<Logout />} />
+        
           <Route path="/wishlist" element={<Wishlist   products={products} />} />
 
         </Routes>

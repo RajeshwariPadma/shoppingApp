@@ -18,7 +18,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Logout } from '../Navigation_Pages/LogOut';
 import { AuthContext } from '../Navigation_Pages/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../authentication';
@@ -34,6 +33,9 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
 
     //Logout 
      const handleLogoutButton = async() => {
+      if(!user){
+        return
+      }
         try {
             await signOut(auth);
             alert("Logout sucessfully");

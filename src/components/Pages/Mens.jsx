@@ -12,12 +12,14 @@ import { AuthContext } from "../Navigation_Pages/AuthContext";
 import { WishListContext } from "../Navigation_Pages/WishlistContext";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useNavigate } from "react-router";
 
-export const Mens = ({ products}) => {
+export const Mens = ({ products }) => {
 
-  const { wishList,  addToWishList, removeFromWishlist } = useContext(WishListContext);
- const { cartItems, setCartItems, addToCart, removeFromCart } = useContext(StoreContext);
- const {user} = useContext(AuthContext);
+    const { wishList, addToWishList, removeFromWishlist } = useContext(WishListContext);
+    const { cartItems, setCartItems, addToCart, removeFromCart } = useContext(StoreContext);
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const filterData = products.filter(
         p => p.category?.toLowerCase() === "men's clothing"
@@ -30,24 +32,26 @@ export const Mens = ({ products}) => {
         );
     };
 
-       const handleAddToCart = (deviceId) => {
-        if(!user) {
-            alert("please Login to add items to cart")
-        }
+    const handleAddToCart = (deviceId) => {
+        if (!user) {
+            alert("please Login to add items to cart");
+            navigate("/login");
+            return
 
-        return addToCart(deviceId);
+        }
+        addToCart(deviceId);
     };
     return (
 
         <Box sx={{
             pl: 5,
             pr: 5,
-            
+
         }}>
             <Box sx={{
                 pl: 2,
                 pr: 5,
-               
+
             }}>
                 <Typography sx={{
                     fontSize: 40,
@@ -66,7 +70,7 @@ export const Mens = ({ products}) => {
             </Box>
             <Box sx={{
                 // display: "grid",
-                 backgroundColor: "#b8f1ed98",
+                backgroundColor: "#b8f1ed98",
                 // gridTemplateRows: "repeat(auto-fill , 1fr)",
                 // gridTemplateColumns: "repeat(2 , 1fr)",
                 // width: 270,
@@ -77,15 +81,15 @@ export const Mens = ({ products}) => {
                 // display: "flex",
                 borderRadius: 5,
                 // width: "98%",
-                display : "grid",
-                gridTemplateColumns : "repeat(4 , 1fr)",
+                display: "grid",
+                gridTemplateColumns: "repeat(4 , 1fr)",
                 // height: 350,
-                height : "auto",
+                height: "auto",
                 cursor: "pointer",
                 mb: 5,
                 // pl: 2,
                 // pr: 5
-                p : (5 , 5)
+                p: (5, 5)
             }}>
                 {filterData.length > 0 ? (
                     filterData.map((device) => {
@@ -111,7 +115,7 @@ export const Mens = ({ products}) => {
                                         // "&:hover": {
                                         //     transform: "scale(1.1)"
                                         // }
-                                         position : "relative"
+                                        position: "relative"
 
                                     }}>
                                     <CardMedia component="img"
@@ -179,90 +183,92 @@ export const Mens = ({ products}) => {
                                     <Box>
                                         {!!wishList?.[device.id] ? (
                                             <Button onClick={() => removeFromWishlist(device.id)}
-                                             sx={{
-                                                position: "absolute",
-                                                top: "5%",
-                                                left: "78%",
-                                                color: "black",
+                                                sx={{
+                                                    position: "absolute",
+                                                    top: "5%",
+                                                    left: "78%",
+                                                    color: "black",
 
-                                            }}>
-                                                < FavoriteIcon sx={{ fontSize: 30 }}  />
+                                                }}>
+                                                < FavoriteIcon sx={{ fontSize: 30 }} />
                                             </Button>
-                                        ) : <Button onClick={() => addToWishList(device.id)} 
-                                        sx={{
+                                        ) : <Button onClick={() => addToWishList(device.id)}
+                                            sx={{
                                                 position: "absolute",
                                                 top: "5%",
                                                 left: "78%",
                                                 color: "black",
 
                                             }}>
-                                            < FavoriteBorderIcon/>
+                                            < FavoriteBorderIcon />
                                         </Button>}
                                     </Box>
                                     <Box sx={{
-                                        position : "absolute",
-                                        top : "60% ",
-                                        right : "5%",
-                                       
+                                        position: "absolute",
+                                        top: "60% ",
+                                        right: "5%",
+
                                     }}>
                                         {!cartItems[device.id] ? (
                                             <Box >
-                                                <Button  onClick={() => handleAddToCart(device.id)}
-                                                    >
-                                                    <AddIcon sx={{ border : "1.5px solid black",
-                                                        borderRadius : 50,
-                                                        fontSize : 30,
-                                                        color : "black",
-                                                        "&:hover" : {
-                                                            borderColor : "red",
-                                                            transform : "scale(1.2)"
+                                                <Button onClick={() => handleAddToCart(device.id)}
+                                                >
+                                                    <AddIcon sx={{
+                                                        border: "1.5px solid black",
+                                                        borderRadius: 50,
+                                                        fontSize: 30,
+                                                        color: "black",
+                                                        "&:hover": {
+                                                            borderColor: "red",
+                                                            transform: "scale(1.2)"
                                                         }
-                                                        
+
                                                     }} />
-                                                    
+
                                                 </Button>
                                             </Box>
                                         )
                                             : (
-                                                <Box sx={{display : "flex" ,
-                                                    flexDirection : "row",
-                                                    border : "1px solid black" ,
-                                                    backgroundColor : "#eceaea98",
-                                                    borderRadius : 10,
-                                                    position : "relative"
-                                                }}> 
+                                                <Box sx={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    border: "1px solid black",
+                                                    backgroundColor: "#eceaea98",
+                                                    borderRadius: 10,
+                                                    position: "relative"
+                                                }}>
                                                     <Button onClick={() => removeFromCart(device.id)}>
                                                         <RemoveIcon sx={{
-                                                              
-                                                        fontSize : 30,
-                                                        color : "black",
-                                                        "&:hover" : {
-                                                            border : "2px solid black",
-                                                         borderRadius : 50,
-                                                            borderColor : "red",
-                                                            // transform : "scale(1.2)"
-                                                        }
-                                                        
-                                                    }}/>
+
+                                                            fontSize: 30,
+                                                            color: "black",
+                                                            "&:hover": {
+                                                                border: "2px solid black",
+                                                                borderRadius: 50,
+                                                                borderColor: "red",
+                                                                // transform : "scale(1.2)"
+                                                            }
+
+                                                        }} />
                                                     </Button>
                                                     <Typography sx={{
-                                                        position : "absolute" ,
+                                                        position: "absolute",
                                                         top: "17%",
-                                                        left : "45%"
+                                                        left: "45%"
                                                     }}>{cartItems[device.id]} </Typography>
                                                     <Button onClick={() => addToCart(device.id)}>
-                                                        <AddIcon sx={{ 
-                                                             
-                                                        fontSize : 30,
-                                                        color : "black",
-                                                        "&:hover" : {
-                                                            border : "2px solid black",
-                                                       borderRadius : 50,
-                                                            borderColor : "green",
-                                                            // transform : "scale(1.2)"
-                                                        }
-                                                        
-                                                    }}/>
+                                                        <AddIcon sx={{
+
+                                                            fontSize: 30,
+                                                            color: "black",
+                                                            "&:hover": {
+                                                                border: "2px solid black",
+                                                                borderRadius: 50,
+                                                                borderColor: "green",
+                                                                // transform : "scale(1.2)"
+                                                            }
+
+                                                        }} />
                                                     </Button>
                                                 </Box>
                                             )
