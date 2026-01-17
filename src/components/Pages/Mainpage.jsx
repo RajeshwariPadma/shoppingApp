@@ -13,9 +13,23 @@ import { Footer } from "./Footer"
 
 
 
-export const Mainpage = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exploreAllRef }) => {
+export const Mainpage = ({ filteredProducts, search, exploreWomenRef, exploreElectronicRef, exploMenRef, exploreAllRef, products, loading }) => {
 
-    const { products, loading } = useProducts();
+    if (search) {
+        return (
+            <Box>
+                <Typography>Search Results</Typography>
+                {filteredProducts.length === 0 ? (
+                    <Typography>No products found</Typography>
+                ) : (<Box>
+                    <Home products={filteredProducts} />
+                    
+                </Box>
+
+                )}
+            </Box>
+        )
+    }
     if (loading) {
         return <Typography>Loading...</Typography>;
     }
@@ -33,8 +47,8 @@ export const Mainpage = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, e
             // pr: 5
             mt: 15
         }}>
-            <Header products={products}/>
-        <OfferBar />
+            <Header products={products} />
+            <OfferBar />
             <Box ref={exploreAllRef}
                 sx={{ scrollMarginTop: "100px" }}>
 
@@ -103,7 +117,7 @@ export const Mainpage = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, e
                 sx={{ scrollMarginTop: "100px" }}>
                 <Mens category="men's clothing" products={products} />
             </Box>
-<Footer />
+            <Footer />
 
         </Box >
 
