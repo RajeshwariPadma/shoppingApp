@@ -68,7 +68,8 @@ export const Register = () => {
                 borderTopLeftRadius: 32,
                 borderBottomLeftRadius: 32
             }}>
-                <Typography sx={{
+                <Typography 
+                sx={{
                     fontWeight: "bold",
                     fontSize: 40,
                     // pl : 10,

@@ -4,21 +4,20 @@ import CardMedia from "@mui/material/CardMedia"
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
+import { useContext } from "react";
+import { StoreContext } from "../Navigation_Pages/StoreContext";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { AuthContext } from "../Navigation_Pages/AuthContext";
+import { WishListContext } from "../Navigation_Pages/WishlistContext";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export const Mens = ({ products}) => {
 
-    // const filterData = products.filter((p) => p.category && category &&
-    //     p.category?.toLowerCase() === category.toLowerCase()
-    // )
-
-    // if (!products || products.length === 0) {
-    //     return (
-    //         <Typography sx={{ p: 5, fontSize: 20 }}>
-    //             Loading Men's Cloths...
-    //         </Typography>
-    //     );
-    // }
-
+  const { wishList,  addToWishList, removeFromWishlist } = useContext(WishListContext);
+ const { cartItems, setCartItems, addToCart, removeFromCart } = useContext(StoreContext);
+ const {user} = useContext(AuthContext);
 
     const filterData = products.filter(
         p => p.category?.toLowerCase() === "men's clothing"
@@ -29,16 +28,26 @@ export const Mens = ({ products}) => {
                 No Men's Cloths found
             </Typography>
         );
-    }
+    };
+
+       const handleAddToCart = (deviceId) => {
+        if(!user) {
+            alert("please Login to add items to cart")
+        }
+
+        return addToCart(deviceId);
+    };
     return (
 
         <Box sx={{
             pl: 5,
-            pr: 5
+            pr: 5,
+            
         }}>
             <Box sx={{
                 pl: 2,
-                pr: 5
+                pr: 5,
+               
             }}>
                 <Typography sx={{
                     fontSize: 40,
@@ -102,6 +111,7 @@ export const Mens = ({ products}) => {
                                         // "&:hover": {
                                         //     transform: "scale(1.1)"
                                         // }
+                                         position : "relative"
 
                                     }}>
                                     <CardMedia component="img"
@@ -166,6 +176,98 @@ export const Mens = ({ products}) => {
                                         </Box>
 
                                     </CardContent>
+                                    <Box>
+                                        {!!wishList?.[device.id] ? (
+                                            <Button onClick={() => removeFromWishlist(device.id)}
+                                             sx={{
+                                                position: "absolute",
+                                                top: "5%",
+                                                left: "78%",
+                                                color: "black",
+
+                                            }}>
+                                                < FavoriteIcon sx={{ fontSize: 30 }}  />
+                                            </Button>
+                                        ) : <Button onClick={() => addToWishList(device.id)} 
+                                        sx={{
+                                                position: "absolute",
+                                                top: "5%",
+                                                left: "78%",
+                                                color: "black",
+
+                                            }}>
+                                            < FavoriteBorderIcon/>
+                                        </Button>}
+                                    </Box>
+                                    <Box sx={{
+                                        position : "absolute",
+                                        top : "60% ",
+                                        right : "5%",
+                                       
+                                    }}>
+                                        {!cartItems[device.id] ? (
+                                            <Box >
+                                                <Button  onClick={() => handleAddToCart(device.id)}
+                                                    >
+                                                    <AddIcon sx={{ border : "1.5px solid black",
+                                                        borderRadius : 50,
+                                                        fontSize : 30,
+                                                        color : "black",
+                                                        "&:hover" : {
+                                                            borderColor : "red",
+                                                            transform : "scale(1.2)"
+                                                        }
+                                                        
+                                                    }} />
+                                                    
+                                                </Button>
+                                            </Box>
+                                        )
+                                            : (
+                                                <Box sx={{display : "flex" ,
+                                                    flexDirection : "row",
+                                                    border : "1px solid black" ,
+                                                    backgroundColor : "#eceaea98",
+                                                    borderRadius : 10,
+                                                    position : "relative"
+                                                }}> 
+                                                    <Button onClick={() => removeFromCart(device.id)}>
+                                                        <RemoveIcon sx={{
+                                                              
+                                                        fontSize : 30,
+                                                        color : "black",
+                                                        "&:hover" : {
+                                                            border : "2px solid black",
+                                                         borderRadius : 50,
+                                                            borderColor : "red",
+                                                            // transform : "scale(1.2)"
+                                                        }
+                                                        
+                                                    }}/>
+                                                    </Button>
+                                                    <Typography sx={{
+                                                        position : "absolute" ,
+                                                        top: "17%",
+                                                        left : "45%"
+                                                    }}>{cartItems[device.id]} </Typography>
+                                                    <Button onClick={() => addToCart(device.id)}>
+                                                        <AddIcon sx={{ 
+                                                             
+                                                        fontSize : 30,
+                                                        color : "black",
+                                                        "&:hover" : {
+                                                            border : "2px solid black",
+                                                       borderRadius : 50,
+                                                            borderColor : "green",
+                                                            // transform : "scale(1.2)"
+                                                        }
+                                                        
+                                                    }}/>
+                                                    </Button>
+                                                </Box>
+                                            )
+                                        }
+                                    </Box>
                                 </Card>
                             </>
 

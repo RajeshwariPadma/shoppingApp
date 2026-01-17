@@ -9,6 +9,7 @@ import { Electronics } from "./Electronic"
 import { OfferBar } from "./OfferBar"
 import { useProducts } from "./Products"
 import { useMemo } from "react"
+import { Footer } from "./Footer"
 
 
 
@@ -102,7 +103,7 @@ export const Mainpage = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, e
                 sx={{ scrollMarginTop: "100px" }}>
                 <Mens category="men's clothing" products={products} />
             </Box>
-
+<Footer />
 
         </Box >
 
