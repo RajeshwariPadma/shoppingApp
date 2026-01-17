@@ -44,6 +44,24 @@ export const Electronics = ({ products, category }) => {
 
          addToCart(deviceId);
     };
+
+    const handleAddToWishlist = (deviceId) => {
+        if(!user) {
+            alert("please Login to add items to wishlist");
+            navigate("/login");
+            return;
+        }
+        addToWishList(deviceId);
+    };
+
+    const handleRemovefromWishlist = (deviceId) => {
+        if(!user){
+            alert("please Login to remove items to wishlist");
+            navigate("/login");
+            return;
+        }
+        removeFromWishlist(deviceId);
+    }
     return (
 
         <Box
@@ -185,7 +203,7 @@ export const Electronics = ({ products, category }) => {
 
                                     <Box>
                                         {!!wishList?.[device.id] ? (
-                                            <Button onClick={() => removeFromWishlist(device.id)}
+                                            <Button onClick={() => handleRemovefromWishlist(device.id)}
                                              sx={{
                                                 position: "absolute",
                                                 top: "5%",
@@ -195,7 +213,7 @@ export const Electronics = ({ products, category }) => {
                                             }}>
                                                 < FavoriteIcon sx={{ fontSize: 30 }}  />
                                             </Button>
-                                        ) : <Button onClick={() => addToWishList(device.id)} 
+                                        ) : <Button onClick={() =>handleAddToWishlist(device.id)} 
                                         sx={{
                                                 position: "absolute",
                                                 top: "5%",
