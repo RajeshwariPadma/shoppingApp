@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Paper from "@mui/material/Paper";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -16,19 +16,51 @@ import { useMemo } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { AuthContext } from '../Navigation_Pages/AuthContext';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../../authentication';
 
 export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exploreAllRef, products, search, setSearch }) => {
-
+ 
+    const {user} = useContext(AuthContext);
     const [anchorEl, setAnchorEl] = useState(null);
-    // const [search, setSearch] = useState("");
     const [open, setOpen] = useState(false);
+    const [loginAnchorEl, setLoginAnchorEl] = useState(null);
+    const [loginOpen, setLoginOpen] = useState(false);
     const navigate = useNavigate();
 
+    //Logout 
+     const handleLogoutButton = async() => {
+      if(!user){
+        return
+      }
+        try {
+            await signOut(auth);
+            alert("Logout sucessfully");
+            navigate("/");
+        } catch (error) {
+            alert(error.message);
+            console.log(error);
+        }
+        
+    };
 
+   
+
+    //Search bar
     const searchData = useMemo(() => {
         if (!search) return [];
         return products.filter((p) => p.title.toLowerCase().includes(search.toLowerCase()));
     }, [search, products]);
+
+    //remove the text from search bar
+    const handleRemove = () => {
+        setSearch("");
+    }
+
+    //navigate to women block in mainpage
     const handleClickWomen = () => {
         navigate("/");
         setTimeout(() => {
@@ -38,6 +70,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
         });
     };
 
+    //navigate to electronic block in mainpage
     const handleClickElectronics = () => {
         navigate("/");
         setTimeout(() => {
@@ -47,7 +80,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
         });
     };
 
-
+ //navigate to men block in mainpage
     const handleClickMen = () => {
         navigate("/");
         setTimeout(() => {
@@ -57,6 +90,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
         });
     };
 
+     //if click on ALL , it show list of pages or blocks 
     const handleClickAll = () => {
         navigate("/");
         setTimeout(() => {
@@ -66,9 +100,9 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
         });
     }
 
-    const handleRemove = () => {
-        setSearch("");
-    }
+
+
+    
     return (
 
         <Box >
@@ -92,7 +126,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                             onMouseLeave={() => setAnchorEl(null)}
 
                             sx={{ color: "black", }}>
-                            <Typography sx={{ fontSize: 20 , pl : 4 }}>ALL</Typography>
+                            <Typography sx={{ fontSize: 20, pl: 4 }}>ALL</Typography>
                             <Menu
                                 anchorEl={anchorEl}
                                 open={Boolean(anchorEl)}
@@ -102,10 +136,10 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                                 <MenuItem onClick={() => handleClickWomen()}>Women</MenuItem>
                                 <MenuItem onClick={() => handleClickMen()}>Men</MenuItem>
                                 <MenuItem onClick={() => handleClickElectronics()}>Electronic</MenuItem>
-                                <MenuItem>About</MenuItem>
-                                <MenuItem>WishList</MenuItem>
-                                <MenuItem>Login</MenuItem>
-                                <MenuItem>SingUp</MenuItem>
+                                <MenuItem onClick={() => navigate("/footer")}>About</MenuItem>
+                                <MenuItem onClick={() => navigate("/wishlist")}>WishList</MenuItem>
+                                <MenuItem onClick={() => navigate("login")}>Login</MenuItem>
+                                <MenuItem onClick={() => navigate("/register")}>Register</MenuItem>
                             </Menu>
                         </Box>
                         {["Home", "About", "Wishlist"].map((text) => (
@@ -114,7 +148,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                                     if (text === "Home") navigate("/");
                                     if (text === "Women") handleClickWomen();
                                     if (text === "Men") handleClickMen();
-                                    if (text === "About") navigate("/About");
+                                    if (text === "About") navigate("/footer");
                                     if (text === "All") handleClickAll();
                                     if (text === "Electronic") handleClickElectronics();
                                 }}
@@ -122,7 +156,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                                     color: "black",
                                     cursor: "pointer",
                                     fontSize: 20,
-                                
+
                                     "&:hover": {
                                         textDecorationLine: "underline",
                                         textUnderlineOffset: "10px",
@@ -139,7 +173,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
 
                     </Box>
                     <Box sx={{
-                         pl: 11,
+                        pl: 11,
                         label: {
                             color: "#68686c98",
                             fontSize: 25,
@@ -256,33 +290,42 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                         </Box>
                     </Box>
 
-                    <Box onClick={() => navigate("/login") }
+                    <Box onMouseEnter={(e) => setLoginAnchorEl(e.currentTarget)}
+                        onMouseLeave={() => setLoginAnchorEl(null)}
                         sx={{
                             border: "1px solid black",
                             borderRadius: 2,
                             ml: 5,
                             p: 1,
                             width: 80,
-                            cursor : "pointer",
-                            "&:hover" : {
-                                 backgroundColor: "rgb(237, 240, 235)",
+                            cursor: "pointer",
+                            "&:hover": {
+                                backgroundColor: "rgb(237, 240, 235)",
                             }
                         }}>
                         <Typography sx={{
                             color: "black",
                             fontSize: 20,
-                        }} >Login <AccountCircleIcon sx={{
-                            color: "black",
-                            fontSize: 25,
-                            position: "absolute",
-                            top: "41%",
-                            right: "20.5%",
-                            
-                        }} /></Typography>
+                        }} >
+                            Login <AccountCircleIcon sx={{
+                                color: "black",
+                                fontSize: 25,
+                                position: "absolute",
+                                top: "41%",
+                                right: "20.5%",
+
+                            }} /></Typography>
+                        <Menu anchorEl={loginAnchorEl}
+                            open={Boolean(loginAnchorEl)}
+                            onClose={() => setLoginAnchorEl(null)}
+                            MenuListProps={{ onMouseLeave: () => setLoginAnchorEl(null) }}>
+                            <MenuItem onClick={() => navigate("/login")}>Login <LoginIcon /></MenuItem>
+                            <MenuItem onClick={() => handleLogoutButton()} sx={{color : "red"}}>LogOut <LogoutIcon  sx={{color : "red"}}/> </MenuItem>
+                        </Menu>
 
                     </Box>
                     <Box>
-                        <FavoriteBorderIcon sx={{
+                        <FavoriteBorderIcon onClick={() => navigate("/wishlist")} sx={{
                             color: "black",
                             fontSize: 40,
                             m: 3,
@@ -295,7 +338,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                         }} />
                     </Box>
                     <Box>
-                        <ShoppingCartIcon sx={{
+                        <ShoppingCartIcon onClick={() => navigate("/cart")} sx={{
                             color: "black",
                             fontSize: 40,
                             p: 1,
@@ -305,7 +348,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                                 borderRadius: 2,
                                 cursor: "pointer",
                             }
-                        }}/>
+                        }} />
                     </Box>
                 </Toolbar>
             </AppBar>

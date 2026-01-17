@@ -16,12 +16,17 @@ import navbar_logo from "./assets/navbar_logo.jpg"
 import { Electronic_Page } from "./components/Navigation_Pages/Electronic_Page";
 import { Register } from "./components/Navigation_Pages/Register";
 import { Login } from "./components/Navigation_Pages/Login";
+import { Footer } from "./components/Pages/Footer";
+
+import { Cart } from "./components/Navigation_Pages/Cart";
+import { Wishlist } from "./components/Navigation_Pages/Wishlist";
+
 
 function App() {
 
-   const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
   // const [open, setOpen] = useState(false);
- 
+
   const { products, loading } = useProducts();
 
   const exploreWomenRef = useRef(null);
@@ -30,14 +35,14 @@ function App() {
   const exploreAllRef = useRef(null);
 
   if (loading) {
-    return  <Typography sx={{
+    return <Typography sx={{
       fontSize: 30,
       pl: 40,
       ml: 40,
       pt: 25,
       mt: 25,
 
-    }}>Loading...</Typography> ;
+    }}>Loading...</Typography>;
   }
 
 
@@ -52,11 +57,11 @@ function App() {
           exploreAllRef={exploreAllRef}
           products={products}
           search={search}
-           setSearch={setSearch}
-          // open={open}
-          // setOpen={setOpen}
+          setSearch={setSearch}
+        // open={open}
+        // setOpen={setOpen}
         />
-        
+
         <Routes>
 
 
@@ -64,8 +69,8 @@ function App() {
             exploreWomenRef={exploreWomenRef}
             exploreElectronicRef={exploreElectronicRef}
             exploMenRef={exploMenRef}
-            exploreAllRef={exploreAllRef} 
-            search={search}/>} />
+            exploreAllRef={exploreAllRef}
+            search={search} />} />
           <Route path="/home" element={<Home products={products} loading={loading} />} />
 
           <Route path="/electronics_page" element={<Electronic_Page category="electronics" products={products} loading={loading} />} />
@@ -74,7 +79,13 @@ function App() {
           <Route path="/mens" element={<Mens category="men's clothing" products={products} loading={loading} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/footer" element={< Footer />} />
+          <Route path="/cart" element={<Cart products={products} />} />
+        
+          <Route path="/wishlist" element={<Wishlist   products={products} />} />
+
         </Routes>
+
       </BrowserRouter>
 
 
