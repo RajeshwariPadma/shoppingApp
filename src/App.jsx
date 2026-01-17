@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Home } from "./components/Pages/Home"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Header } from "./components/Pages/Header";
@@ -33,6 +33,11 @@ function App() {
   const exploreElectronicRef = useRef(null);
   const exploMenRef = useRef(null);
   const exploreAllRef = useRef(null);
+
+  const filteredProducts = useMemo(() => {
+    if(!search) return [];
+    return products.filter(p => p.title.toLowerCase().includes(search.toLocaleLowerCase()));
+  } , [search , products]);
 
   if (loading) {
     return <Typography sx={{
@@ -70,11 +75,12 @@ function App() {
             exploreElectronicRef={exploreElectronicRef}
             exploMenRef={exploMenRef}
             exploreAllRef={exploreAllRef}
-            search={search} />} />
+            search={search}
+            filteredProducts ={filteredProducts} />} />
           <Route path="/home" element={<Home products={products} loading={loading} />} />
 
-          <Route path="/electronics_page" element={<Electronic_Page category="electronics" products={products} loading={loading} />} />
-          <Route path="/women" element={<Womens category="women's clothing" products={products} loading={loading} />} />
+          <Route path="/electronics_page" element={<Electronic_Page category="electronics" products={products} loading={loading}  />} />
+          <Route path="/women" element={<Womens category="women's clothing" products={products} loading={loading}  />} />
           {/* <Route path="/Catageri" element={<Catagery Catagery="furniture" products={products}  productsDetails={productsDetails} />} />  */}
           <Route path="/mens" element={<Mens category="men's clothing" products={products} loading={loading} />} />
           <Route path="/register" element={<Register />} />

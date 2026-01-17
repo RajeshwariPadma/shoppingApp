@@ -220,7 +220,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                                 backgroundColor: "#75757898",
                             },
 
-                        }} /> <SearchIcon sx={{
+                        }} /> <SearchIcon onClick={() => navigate("/")} sx={{
                             color: "black",
                             backgroundColor: "#c6c6c798",
 
@@ -270,6 +270,7 @@ export const Navbar = ({ exploreWomenRef, exploreElectronicRef, exploMenRef, exp
                                             onClick={() => {
                                                 setSearch(item.title);
                                                 setOpen(false);
+                                                navigate("/")
                                             }}>
                                             {item.title} <Box component="img"
                                                 src={item.images ? item.images[0] : item.image}
