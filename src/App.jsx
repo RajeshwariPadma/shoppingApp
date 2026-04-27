@@ -7,7 +7,7 @@ import { Mainpage } from "./components/Pages/Mainpage";
 
 
 function App() {
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
 
   const productsDetails = async () => {
     const [dummyres, fakeres] = await Promise.all([
